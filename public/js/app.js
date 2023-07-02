@@ -8,8 +8,8 @@ const viewLess = document.querySelector(".less");
 
 let currTime = () => {
     let currDate = new Date();
-    let localTime = currDate.toLocaleTimeString();
-    time.innerHTML = localTime;
+    let localTime = currDate.toTimeString();
+    time.innerHTML = localTime.substring(0,8)+localTime.substring(17);
 };
 
 let currDay = () => {

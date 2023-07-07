@@ -17,12 +17,21 @@ app.get('/',function(req,res){
     res.render("index",{sendData:sendData});
 });
 
+app.post('/failure',function(req,res){
+    const sendData={location:"Location",Temperature:"Temp",description:"Description",feel:"Feel-like",humidity:"Humidity",speed:"Speed"};
+    res.render("index",{sendData:sendData});
+})
+
 app.post('/',function(req,res){
     const location=req.body.city;
     const url=`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${process.env.ApiKey}&units=metric`;
     https.get(url,function(response){
         response.on("data",function(data){
             const weatherData=JSON.parse(data);
+            if(weatherData.cod!=200){
+                res.render("failure");
+            }
+            else{
             const Temperature=weatherData.main.temp;
             const description=weatherData.weather[0].description;
             const icon=weatherData.weather[0].icon;
@@ -32,6 +41,7 @@ app.post('/',function(req,res){
             const speed=weatherData.wind.speed;
             sendData={location:location,Temperature:Temperature,description:description,feel:feel,humidity:humidity,speed:speed};
             res.render("index",{sendData:sendData});
+            }
         })
         
     });

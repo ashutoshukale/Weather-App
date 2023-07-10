@@ -39,7 +39,7 @@ view.addEventListener("click", ()=>{
     }
 });
 
-viewSvg.addEventListener("onclick", ()=>{
+viewSvg.addEventListener("click", ()=>{
     viewSvg.classList.toggle("rotate");
     viewMoreBox.classList.toggle("visible");
     view.classList.toggle("less");
